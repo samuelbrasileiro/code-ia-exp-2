@@ -4,7 +4,7 @@ services:
     runtime: node
     plan: free
     rootDir: sistema/server
-    buildCommand: npm install && npx tsc
+    buildCommand: npm install --include=dev && npm exec tsc
     startCommand: npm start
     healthCheckPath: /api/health
     envVars:
