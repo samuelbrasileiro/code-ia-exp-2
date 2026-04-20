@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: sistema-gestao-alunos
+    runtime: node
+    rootDir: sistema/server
+    buildCommand: npm install --include=dev && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: EMAIL_HOST
+        sync: false
+      - key: EMAIL_PORT
+        sync: false
+      - key: EMAIL_USER
+        sync: false
+      - key: EMAIL_PASS
+        sync: false
+      - key: EMAIL_FROM
+        sync: false
+    healthCheckPath: /api/health

@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import express, { type Request, type Response, type NextFunction } from 'express';
 import cors from 'cors';
+import path from 'path';
 import alunosRouter from './routes/alunos';
 import metasRouter from './routes/metas';
 import turmasRouter from './routes/turmas';
@@ -26,15 +27,25 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   next()
 })
 
+app.get('/api/health', (_req, res) => res.json({ status: 'ok' }));
+
 app.use('/api/alunos', alunosRouter);
 app.use('/api/metas', metasRouter);
 app.use('/api/turmas', turmasRouter);
 app.use('/api/turmas/:id/avaliacoes', avaliacoesRouter);
 app.use('/api/email', emailRouter);
 
-app.use((_req, res) => {
+app.use('/api', (_req, res) => {
   res.status(404).json({ erro: 'Rota não encontrada.' });
 });
+
+if (process.env.NODE_ENV === 'production') {
+  const clientDist = path.join(__dirname, '../../client/dist');
+  app.use(express.static(clientDist));
+  app.use((_req, res) => {
+    res.sendFile(path.join(clientDist, 'index.html'));
+  });
+}
 
 if (!process.env.DISABLE_EMAIL_JOB) {
   iniciarJobEmailDiario();
