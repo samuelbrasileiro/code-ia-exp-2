@@ -1,1 +1,62 @@
-[]
+[
+  {
+    "id": "5cb5a430-e025-44c1-9eb1-e8f4fb20ba00",
+    "topico": "Português 1",
+    "ano": 2026,
+    "semestre": 2,
+    "alunoIds": [
+      "5a9882a8-4fb9-4585-82fc-bb51fc4cac99",
+      "698f097c-cc5c-41e7-b190-2fd2ffec9cc5"
+    ],
+    "avaliacoes": [
+      {
+        "alunoId": "5a9882a8-4fb9-4585-82fc-bb51fc4cac99",
+        "metaId": "requisitos",
+        "conceito": "MPA",
+        "atualizadoEm": "2026-04-20T03:17:14.682Z"
+      },
+      {
+        "alunoId": "5a9882a8-4fb9-4585-82fc-bb51fc4cac99",
+        "metaId": "testes",
+        "conceito": "MANA",
+        "atualizadoEm": "2026-04-20T03:17:16.171Z"
+      },
+      {
+        "alunoId": "5a9882a8-4fb9-4585-82fc-bb51fc4cac99",
+        "metaId": "design",
+        "conceito": "MPA",
+        "atualizadoEm": "2026-04-20T03:17:18.057Z"
+      },
+      {
+        "alunoId": "5a9882a8-4fb9-4585-82fc-bb51fc4cac99",
+        "metaId": "implementacao",
+        "conceito": "MPA",
+        "atualizadoEm": "2026-04-20T03:17:21.256Z"
+      },
+      {
+        "alunoId": "698f097c-cc5c-41e7-b190-2fd2ffec9cc5",
+        "metaId": "testes",
+        "conceito": "MANA",
+        "atualizadoEm": "2026-04-20T03:25:00.549Z"
+      },
+      {
+        "alunoId": "698f097c-cc5c-41e7-b190-2fd2ffec9cc5",
+        "metaId": "implementacao",
+        "conceito": "MANA",
+        "atualizadoEm": "2026-04-20T11:32:59.298Z"
+      },
+      {
+        "alunoId": "698f097c-cc5c-41e7-b190-2fd2ffec9cc5",
+        "metaId": "design",
+        "conceito": "MA",
+        "atualizadoEm": "2026-04-20T12:36:47.507Z"
+      },
+      {
+        "alunoId": "698f097c-cc5c-41e7-b190-2fd2ffec9cc5",
+        "metaId": "requisitos",
+        "conceito": "MANA",
+        "atualizadoEm": "2026-04-20T12:38:59.787Z"
+      }
+    ]
+  }
+]

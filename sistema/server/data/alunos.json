@@ -1,1 +1,14 @@
-[]
+[
+  {
+    "id": "5a9882a8-4fb9-4585-82fc-bb51fc4cac99",
+    "nome": "Samuel Brasileiro",
+    "cpf": "113.144.174-52",
+    "email": "samuelbsantosn@gmail.com"
+  },
+  {
+    "id": "698f097c-cc5c-41e7-b190-2fd2ffec9cc5",
+    "nome": "Pedro",
+    "cpf": "781.782.824-53",
+    "email": "sbsn@cin.ufpe.br"
+  }
+]
