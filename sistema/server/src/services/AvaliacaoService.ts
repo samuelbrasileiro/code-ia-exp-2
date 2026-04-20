@@ -3,6 +3,9 @@ import { TurmaRepository } from '../repositories/TurmaRepository';
 import { FilaEmailRepository } from '../repositories/FilaEmailRepository';
 import { MetaService } from './MetaService';
 import { dataHoje } from '../utils/date';
+import { createLogger } from '../utils/logger';
+
+const logger = createLogger('AvaliacaoService');
 
 export type ResultadoAvaliacao =
   | { ok: true; avaliacao: Avaliacao }
@@ -37,6 +40,7 @@ export const AvaliacaoService = {
     avaliacoes.push(avaliacao);
     TurmaRepository.save({ ...turma, avaliacoes });
 
+    logger.debug(`Avaliação salva`, { turmaId, alunoId, metaId, conceito })
     this.registrarFilaEmail(alunoId, turmaId, metaId, conceito);
 
     return { ok: true, avaliacao };
@@ -44,6 +48,7 @@ export const AvaliacaoService = {
 
   registrarFilaEmail(alunoId: string, turmaId: string, metaId: string, conceito: string): void {
     const data = dataHoje();
+    const jaExistia = FilaEmailRepository.findByAlunoEData(alunoId, data) !== undefined
     const entrada = FilaEmailRepository.findByAlunoEData(alunoId, data) ?? {
       alunoId,
       data,
@@ -56,6 +61,15 @@ export const AvaliacaoService = {
     );
     mudancas.push({ turmaId, metaId, conceito });
 
-    FilaEmailRepository.save({ ...entrada, mudancas });
+    const foiReaberta = entrada.enviado
+    FilaEmailRepository.save({ ...entrada, mudancas, enviado: false })
+
+    if (!jaExistia) {
+      logger.info(`Nova entrada na fila de e-mail para aluno ${alunoId} na data ${data}`)
+    } else if (foiReaberta) {
+      logger.info(`Fila reaberta para aluno ${alunoId} — nova mudança após envio anterior`, { turmaId, metaId, conceito })
+    } else {
+      logger.debug(`Fila de e-mail atualizada para aluno ${alunoId}`, { turmaId, metaId, conceito, totalMudancas: mudancas.length })
+    }
   },
 };

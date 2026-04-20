@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { BotaoEnviarEmails } from '../../components/BotaoEnviarEmails'
 import { ErroMensagem } from '../../components/ErroMensagem'
 import { Spinner } from '../../components/Spinner'
 import { useAlunos } from '../../hooks/useAlunos'
+import { useEmailStatus } from '../../hooks/useEmailStatus'
 import { useTurmas } from '../../hooks/useTurmas'
 import { turmasApi } from '../../services/api'
 import { extractMensagem } from '../../services/apiErrors'
@@ -15,6 +17,7 @@ type Modo = { tipo: 'lista' } | { tipo: 'nova' } | { tipo: 'editar'; turma: Turm
 export function Turmas() {
   const { data: turmas, loading, error, refetch } = useTurmas()
   const { data: todosAlunos } = useAlunos()
+  const { status: emailStatus, refetch: refetchEmail } = useEmailStatus()
   const [modo, setModo] = useState<Modo>({ tipo: 'lista' })
   const [salvando, setSalvando] = useState(false)
   const [erroServidor, setErroServidor] = useState<string | undefined>()
@@ -48,6 +51,14 @@ export function Turmas() {
       await refetch()
     } catch (e: unknown) {
       alert(extractMensagem(e) ?? 'Erro ao remover turma.')
+    }
+  }
+
+  function handleEmailEnviado(ultimoEnvio: string | null) {
+    refetchEmail()
+    // se o servidor retornou ultimoEnvio atualizado, aplica otimisticamente
+    if (emailStatus && ultimoEnvio) {
+      // refetch já vai buscar o estado real
     }
   }
 
@@ -114,6 +125,8 @@ export function Turmas() {
           </tbody>
         </table>
       )}
+
+      <BotaoEnviarEmails status={emailStatus} onEnviado={handleEmailEnviado} />
     </div>
   )
 }

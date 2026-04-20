@@ -33,3 +33,14 @@ export const avaliacoesApi = {
 export const metasApi = {
   listar: () => http.get<Meta[]>('/metas').then(r => r.data),
 }
+
+export interface EmailStatus {
+  pendentes: boolean
+  ultimoEnvio: string | null
+}
+
+export const emailApi = {
+  status: () => http.get<EmailStatus>('/email/status').then(r => r.data),
+  disparar: () =>
+    http.post<{ mensagem: string; ultimoEnvio: string | null }>('/email/disparar').then(r => r.data),
+}

@@ -16,6 +16,18 @@ export const FilaEmailRepository = {
     return this.findAll().filter((e) => e.data === data && !e.enviado);
   },
 
+  hasPendentes(): boolean {
+    return this.findAll().some((e) => !e.enviado);
+  },
+
+  ultimoEnvio(): string | null {
+    const enviados = this.findAll()
+      .filter((e) => e.enviado && e.enviadoEm)
+      .map((e) => e.enviadoEm as string);
+    if (enviados.length === 0) return null;
+    return enviados.reduce((a, b) => (a > b ? a : b));
+  },
+
   save(entrada: FilaEmailEntrada): void {
     const all = this.findAll();
     const index = all.findIndex((e) => e.alunoId === entrada.alunoId && e.data === entrada.data);

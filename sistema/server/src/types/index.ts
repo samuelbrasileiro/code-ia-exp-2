@@ -34,4 +34,5 @@ export interface FilaEmailEntrada {
   data: string;
   mudancas: { turmaId: string; metaId: string; conceito: string }[];
   enviado: boolean;
+  enviadoEm?: string;
 }
