@@ -36,7 +36,9 @@ app.use((_req, res) => {
   res.status(404).json({ erro: 'Rota não encontrada.' });
 });
 
-iniciarJobEmailDiario();
+if (!process.env.DISABLE_EMAIL_JOB) {
+  iniciarJobEmailDiario();
+}
 
 app.listen(PORT, () => {
   const log = createLogger('SERVER')

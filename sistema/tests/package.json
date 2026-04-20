@@ -1,0 +1,16 @@
+{
+  "name": "sistema-tests",
+  "private": true,
+  "scripts": {
+    "pretest": "npm --prefix ../server run build",
+    "test": "cucumber-js",
+    "test:wip": "cucumber-js --tags @wip"
+  },
+  "devDependencies": {
+    "@cucumber/cucumber": "^11.0.0",
+    "@types/node": "^22.0.0",
+    "chai": "^5.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.0"
+  }
+}
